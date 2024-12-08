@@ -33,8 +33,13 @@ public class FileServiceImpl implements FileService {
     private final String UPLOAD_DIR = "uploads/";
 
     @Override
-    public List<File> getAllPosts() {
+    public List<File> getAllFiles() {
         return fileRepository.findAll();
+    }
+
+    @Override
+    public List<File> getAllPosts() {
+        return fileRepository.findAllPosts();
     }
 
     @Override

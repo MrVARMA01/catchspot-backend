@@ -1,5 +1,6 @@
 package com.project.catchspot.controller;
 import com.project.catchspot.entity.Collection;
+import com.project.catchspot.entity.Privacy;
 import com.project.catchspot.entity.User;
 import com.project.catchspot.service.CollectionService;
 import com.project.catchspot.service.UserService;
@@ -20,14 +21,20 @@ public class CollectionController {
     private UserService userService;
 
     @PostMapping("/create-collection")
-    public ResponseEntity<?> createCollection(@RequestParam long userId, @RequestParam String collectionName, @RequestParam List<MultipartFile> files) throws IOException {
+    public ResponseEntity<?> createCollection(
+            @RequestParam long userId,
+            @RequestParam String collectionName,
+            @RequestParam List<MultipartFile> files,
+            @RequestParam Privacy privacy,
+            @RequestParam boolean post) throws IOException {
         User user = userService.findByUserId(userId);
         if (user != null) {
-            return ResponseEntity.ok(collectionService.createCollection(userId,collectionName,files));
+            return ResponseEntity.ok(collectionService.createCollection(userId, collectionName, files,privacy,post));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
 
     @GetMapping("/user-collections")
     public ResponseEntity<List<Collection>> getUserCollections(@RequestParam long userId) {
@@ -50,8 +57,12 @@ public class CollectionController {
     }
 
     @PostMapping("/upload-to-collection")
-    public ResponseEntity<Collection> uploadToCollection(@RequestParam List<MultipartFile> files, @RequestParam long collectionId) throws IOException {
-            return ResponseEntity.ok(collectionService.uploadToCollection(files,collectionId));
+    public ResponseEntity<Collection> uploadToCollection(
+            @RequestParam List<MultipartFile> files,
+            @RequestParam long collectionId,
+            @RequestParam Privacy privacy,
+            @RequestParam boolean post) throws IOException {
+            return ResponseEntity.ok(collectionService.uploadToCollection(files,collectionId,privacy,post));
     }
 
     @PostMapping("/rename-collection")

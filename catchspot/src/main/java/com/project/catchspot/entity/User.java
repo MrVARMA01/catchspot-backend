@@ -15,37 +15,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private File profilePic;
-
     @Column(nullable = false, unique = true)
     private String email;
-
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     private String firstName;
-
     private String lastName;
-
     @Column(nullable = false)
     private long phone;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Collection> collections = new ArrayList<>();
-
-    private boolean isPrivateAccount;
-
     private List<Long> connects = new ArrayList<>();
-
     private List<Long> gotConnectRequests = new ArrayList<>();
-
     private List<Long> sentConnectRequests = new ArrayList<>();
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    private boolean isPrivateAccount;
     @Enumerated(EnumType.STRING)
     private Status status;
 

@@ -21,9 +21,17 @@ public class FileController {
     @Autowired
     private CollectionService collectionService;
 
-
+    @GetMapping("/all-files")
+    public ResponseEntity<List<File>> getAllFiles() {
+        List<File> files = fileService.getAllFiles();
+        if (files.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.ok(files);
+        }
+    }
     @GetMapping("/all-posts")
-    public ResponseEntity<List<File>> getPosts() {
+    public ResponseEntity<List<File>> getAllPosts() {
         List<File> files = fileService.getAllPosts();
         if (files.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

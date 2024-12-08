@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface FileService {
+    List<File> getAllFiles();
     List<File> getAllPosts();
     List<File> getConnectsPosts(long userId);
     File getFile(long fileId);
